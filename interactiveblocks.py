@@ -158,7 +158,7 @@ class GridWorld:
 
     def __init__(self, width=10, height=10, fill = (0,0,0), block_size = 25):
         self.time = time.time(),
-        self.things = []
+        self.things = defaultdict(list) #use tuple of row,column as keys
         self.grid = CustomGrid(width, height, fill=fill, block_size=block_size)
 
     def object_name(self):
@@ -174,28 +174,26 @@ class GridWorld:
         # Do in future
         return NotImplementedError
 
-    def list_things_at(self, location, tclass=Thing):
+    def list_things_at(self, row, column, tclass=Thing):
         "Return all things exactly at a given location."
-        # Do in future
-        return NotImplementedError
+        return [thing for thing in self.things[(row,column)] if isinstance(thing, tclass)]
 
-    def some_things_at(self, location, tclass=Thing):
+    def some_things_at(self, row, column, tclass=Thing):
         """Return true if at least one of the things at location
         is an instance of class tclass (or a subclass)."""
-        # Do in future
-        return NotImplementedError
+        return bool(len([thing for thing in self.things[(row,column)] if isinstance(thing, tclass)]))
 
-    def add_thing(self, thing, location=None):
-        """Add a thing to the environment, setting its location. For
-        convenience, if thing is an agent program we make a new agent
-        for it. (Shouldn't need to override this."""
-        # Do in future
-        return NotImplementedError
+    def add_thing(self, thing, row, column):
+        """Add a thing to the environment, setting its location.
+        Location needs to be specified as a tuple of row,column
+        """
+        thing.row = row
+        thing.column = column
+        self.thing[(row,column)].append(thing)
 
     def delete_thing(self, thing):
         """Remove a thing from the environment."""
-        # Do in future
-        return NotImplementedError
+        self.thing[(thing.row,thing.column)].remove(thing)
 
     def handle_interaction_block(self, coordinates):
         ''' This method needs to be overriden to handle clicks on the grid.'''
