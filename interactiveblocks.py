@@ -101,28 +101,57 @@ class CustomGrid(BlockGrid):
 
             self._grid = grid
 
-class Thing(object):
+class Thing:
+    ''' 
+    Represents Things to placed on the Grid. Can include agents.
+    Subclass this to add methods to agents like percept etc.
+    '''
 
-    """This represents any physical object that can appear in an Environment.
-    You subclass Thing to get the things you want.  Each thing can have a
-    .__name__  slot (used for output only)."""
-
-    def __repr__(self):
-        return '<{}>'.format(getattr(self, '__name__',
-                                     self.__class__.__name__))
-
-    def is_alive(self):
-        "Things that are 'alive' should return true."
-        return hasattr(self, 'alive') and self.alive
+    def __init__(self, x, y,shape='Circle',red=255,green=0,blue=0):
+        self.x = x
+        self.y = y
+        if shape in _THINGS.keys():
+            self.shape = shape
+        else:
+            self.shape = 'Circle'
+        self.red = red
+        self.green = green
+        self.blue = blue
 
     def show_state(self):
-        "Display the agent's internal state.  Subclasses should override."
-        print("I don't know how to show_state.")
+        ''' Override if other Parameters are added.'''
+        return self.x, self.y, self.shape, (self.red, self.green, self.blue)
 
-    def display(self, canvas, x, y, width, height):
-        # Do we need this?
-        "Display an image of this Thing on the canvas."
-        pass
+    def set_colors(self, red, green, blue):
+        """
+        Updated thing colors.
+
+        Parameters
+        ----------
+        red, green, blue : int
+            Integers on the range [0 - 255].
+
+        """
+        self.red = red
+        self.green = green
+        self.blue = blue
+
+    def set_shape(self, shape):
+        """
+        Updated thing shape.
+        """
+        if shape in _THINGS.keys():
+            self.shape = shape
+
+    def _repr_html_(self):
+        """
+        The HTML for a table cell with the background color of this Block.
+
+        """
+        return _THINGS[self.shape].format(str((self.red, self.green, self.blue)))
+    
+    def show(self):
+        display(HTML(self._repr_html_()))
 
 class GridWorld:
     ''' Heavily borrows ideas from AIMA code's Environment class'''
