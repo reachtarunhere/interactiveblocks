@@ -1,5 +1,6 @@
 from ipythonblocks import Block, BlockGrid
 from IPython.display import HTML, display, clear_output
+from collections import defaultdict
 import time
 import __main__
 
