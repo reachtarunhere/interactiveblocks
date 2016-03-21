@@ -1,0 +1,2 @@
+ipythonblocks == 1.7.0
+ipython == 4.1.2
