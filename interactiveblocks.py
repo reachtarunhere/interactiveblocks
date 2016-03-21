@@ -212,18 +212,3 @@ class GridWorld:
         total_html = grid_html + _JS_MAGIC
         clear_output(wait=True)
         display(HTML(total_html))
-
-    def total_code(self):
-        # add js
-        # customize replace name of class
-        grid_html = self.grid._repr_html_()
-        grid_html = grid_html.replace("GRID_NAME",str(self.object_name()))
-        total_html = grid_html + _JS_MAGIC
-        return total_html
-        # get html from them
-
-    def update_loop(self):
-      for i in range(10):
-          time.sleep(1)
-          clear_output(wait=True)
-          display(HTML('<b> Hello  ' + str(i) + '</b>'))
