@@ -48,6 +48,38 @@ _JS_MAGIC = '''
 
 </script>
 '''
+_THINGS = {
+    'Circle': '''<div style="width:75%;">
+                <svg version="1.1" viewBox="0 0 500 500">
+                    <circle fill={0} stroke="#231F20" stroke-width="10" cx="250" cy="250" r="200"/>
+                </svg>
+                </div>''',
+    'Square': '''<div style="width:75%;">
+                <svg version="1.1" viewBox="0 0 500 500">
+                    <rect fill:{0} x="25" y="25" width="450" height="450" stroke:(0,0,0) stroke-width:"10"; />
+                </svg>
+                </div>''',
+    'Triangle': '''<div style="width:75%;">
+                <svg version="1.1" viewBox="0 0 500 500">
+                    <polygon points="250,20 490,490 10,490" fill:(0,0,0) stroke:(0,0,0) stroke-width:"10" />
+                </svg>
+                </div>''',
+    'Star':  '''<div style="width:75%;">
+                <svg version="1.1" viewBox="0 0 210 500">
+                    <polygon points="100,10 40,198 190,78 10,78 160,198" fill:(0,0,0) stroke:(0,0,0) stroke-width:10 fill-rule:"nonzero"/>
+                </svg>
+                </div>''',
+    'HStar': '''<div style="width:75%;">
+                <svg version="1.1" viewBox="0 0 210 500">
+                    <polygon points="100,10 40,198 190,78 10,78 160,198" style="fill:{0};stroke:(0,0,0);stroke-width:5;fill-rule:evenodd;"/>
+                </svg>
+                </div>''',
+    'Wall': '''<div style="width:100%;">
+                <svg version="1.1" viewBox="0 0 500 500">
+                    <rect fill:{0} x="25" y="25" width="450" height="450" stroke:(0,0,0) stroke-width:"10"; />
+                </svg>
+                </div>''',
+}
 
 class CustomBlock(Block):
     @property
